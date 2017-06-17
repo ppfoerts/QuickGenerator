@@ -4,6 +4,7 @@
 import random
 import sys
 import heapq
+import os
 
 #quick generator requirements,
 #name, class, stats, race, alignment
@@ -44,8 +45,53 @@ def statGen(method):
     return stats
     
 
-def nameGen():
+def nameGen(race,gender):
+    script_dir = os.path.dirname(__file__)
     name = ""
+    fileName = "names/"
+    first = ""
+    last = ""
+    
+    if("Dwarf" in race):
+        fileName += "Dwarf"        
+    elif("Half-Elf" in race):
+        fileName += "Half-Elf"
+    elif("Elf" in race):
+        fileName += "Elf"
+    elif("Halfling" in race):
+        fileName += "Halfling"
+    elif("Human" in race):
+        fileName += "Human"
+    elif("Dragonborn" in race):
+        fileName += "Dragonborn"
+    elif("Gnome" in race):
+        fileName += "Gnome"
+    elif("Half-orc" in race):
+        fileName += "Half-orc"
+    elif("Tiefling" in race):
+        fileName += "Tiefling"
+        
+    fileNameLast = fileName+"last"+".txt"
+    absPath = os.path.join(script_dir, fileNameLast)
+    nameFile = open(absPath,'r')
+    names =  nameFile.read().split(',')
+    last = random.choice(names).strip()
+        
+    if(gender == "Male"):
+        fileName += "M"
+    elif(gender == "Female"):
+        fileName += "F"
+        
+    fileNameFirst = fileName + ".txt"
+    absPath = os.path.join(script_dir, fileNameFirst)
+    nameFile = open(absPath,'r')
+    names =  nameFile.read().split(',')
+    first = random.choice(names).strip()
+        
+    
+        
+    name = first + " " + last
+    
     return name
     
 def classGen(stats):
@@ -102,8 +148,8 @@ def raceGen(clas):
     elif(clas == "Monk" or clas == "Ranger" or clas == "Rogue"):
         choices.append("High Elf")
         choices.append("Wood Elf")
-        choices.append("Stout Halfing")
-        choices.append("Lightfoot Halfing")
+        choices.append("Stout Halfling")
+        choices.append("Lightfoot Halfling")
         choices.append("Forest Gnome")
     elif(clas == "Wizard"):
         choices.append("High Elf")
@@ -114,11 +160,11 @@ def raceGen(clas):
         choices.append("Wood Elf")
         choices.append("Hill Dwarf")    
     elif(clas == "Bard" or clas == "Sorceror" or clas == "Warlock"):
-        choices.append("Half Elf")
+        choices.append("Half-Elf")
         choices.append("Tiefling")
         choices.append("Drow")
         choices.append("Dragonborn")
-        choices.append("Lightfoot Halfing")
+        choices.append("Lightfoot Halfling")
         
     race = random.choice(choices)
     return race
@@ -174,7 +220,9 @@ def raceStatChanges(stats,race):
 def alignmentGen():
     alignment = random.choice(["LG","LN","LE","NG","N","NE","CG","CN","CE"])
     return alignment;
-    
+  
+def backgroundGen():
+    return random.choice(["Acolyte","Charlatan","Criminal","Entertainer","Folk Hero","Guild Artisan","Hermit","Noble","Outlander","Sage","Sailor","Soldier","Urchin"])
 if __name__ == "__main__":
     #check for arguments
     if(len(sys.argv) != 2):
@@ -197,4 +245,17 @@ if __name__ == "__main__":
         #4th alignment
         print("Alignment:")
         print(alignmentGen())
+        #5th background
+        print("Background: ")
+        print(backgroundGen())
+        #6th gender
+        print("Gender: ")
+        gender = random.choice(["Male","Female"])
+        print(gender)
+        #7th name
+        name = nameGen(race,gender);
+        print("Name: ")
+        print(name)
+        
+        
         
