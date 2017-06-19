@@ -223,6 +223,8 @@ def alignmentGen():
   
 def backgroundGen():
     return random.choice(["Acolyte","Charlatan","Criminal","Entertainer","Folk Hero","Guild Artisan","Hermit","Noble","Outlander","Sage","Sailor","Soldier","Urchin"])
+   
+    
 if __name__ == "__main__":
     #check for arguments
     if(len(sys.argv) != 2):
@@ -256,6 +258,19 @@ if __name__ == "__main__":
         name = nameGen(race,gender);
         print("Name: ")
         print(name)
+        
+        #calculate the final set of stats
+    
+    #HP and Hit Dice
+    #Proficiency bonus
+    #saving throws
+    #skills
+    #languages
+    #equipment
+    #Armor Class and Speed
+    #spells
+        
+        
         
         
         
