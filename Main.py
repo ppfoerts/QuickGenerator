@@ -17,7 +17,12 @@ def rollDice(N, S):
      
     return result
  
-
+def calcBonus(stat):
+    bonus = 0
+    bonus = round((stat - 10)/2);
+    return bonus
+  
+#random generator functions  
 def statGen(method):  
     stats = [0,0,0,0,0,0]
     #different methods to generate
@@ -44,7 +49,6 @@ def statGen(method):
       
     return stats
     
-
 def nameGen(race,gender):
     script_dir = os.path.dirname(__file__)
     name = ""
@@ -224,6 +228,11 @@ def alignmentGen():
 def backgroundGen():
     return random.choice(["Acolyte","Charlatan","Criminal","Entertainer","Folk Hero","Guild Artisan","Hermit","Noble","Outlander","Sage","Sailor","Soldier","Urchin"])
    
+def hpGen(clas,con):
+    d12 = {'Barbarian'}
+    if(clas in d12 )
+    hp = 0
+    return hp
     
 if __name__ == "__main__":
     #check for arguments
@@ -260,15 +269,16 @@ if __name__ == "__main__":
         print(name)
         
         #calculate the final set of stats
-    
-    #HP and Hit Dice
-    #Proficiency bonus
-    #saving throws
-    #skills
-    #languages
-    #equipment
-    #Armor Class and Speed
-    #spells
+        print(calcBonus(stats[0]))
+        #HP and Hit Dice
+        print("HP: ")
+        #Proficiency bonus
+        #saving throws
+        #skills
+        #languages
+        #equipment
+        #Armor Class and Speed
+        #spells
         
         
         
