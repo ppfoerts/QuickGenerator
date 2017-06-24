@@ -228,7 +228,8 @@ def alignmentGen():
 def backgroundGen():
     return random.choice(["Acolyte","Charlatan","Criminal","Entertainer","Folk Hero","Guild Artisan","Hermit","Noble","Outlander","Sage","Sailor","Soldier","Urchin"])
 
-def hpGen(clas,con):
+#calculators
+def hpCalc(clas,con):
     d12 = {'Barbarian'}
     d10 = {"Fighter","Paladin","Ranger"}
     d8 = {"Bard","Cleric","Druid","Monk","Rogue","Warlock"}
@@ -245,7 +246,7 @@ def hpGen(clas,con):
         
     return hp
 
-def savingThrowGen(stats,clas,profBonus):
+def savingThrowCalc(stats,clas,profBonus):
     saves = [0,0,0,0,0,0]
     #can't think of way to do this efficiently right now, I'll do it manually for now
     #str
@@ -288,7 +289,22 @@ def savingThrowGen(stats,clas,profBonus):
         saves[2] += profBonus
         saves[5] += profBonus
 
-    return saves   
+    return saves  
+
+def profCalc(clas,background):
+    proficiencies = ""
+    with open("proficiencies.txt") as f:
+        for line in f:
+            if clas in line:
+                proficiencies += line
+    return proficiencies
+
+def langCalc(race,background):
+    lang = ["Common"]
+    
+    
+    return lang
+    
 if __name__ == "__main__":
     #check for arguments
     if(len(sys.argv) != 2):
@@ -313,7 +329,8 @@ if __name__ == "__main__":
         print(alignmentGen())
         #5th background
         print("Background: ")
-        print(backgroundGen())
+        background = backgroundGen()
+        print(background)
         #6th gender
         print("Gender: ")
         gender = random.choice(["Male","Female"])
@@ -325,16 +342,20 @@ if __name__ == "__main__":
         
         #HP and Hit Dice
         print("HP: ")
-        print(hpGen(clas,stats[2]))
+        print(hpCalc(clas,stats[2]))
         #Proficiency bonus
         profBonus = 2
         print("Proficiency Bonus: ")
         print(profBonus)
         #saving throws
         print("Saving Throws: ")
-        print(savingThrowGen(stats,clas,profBonus))
-        #skills
+        print(savingThrowCalc(stats,clas,profBonus))
+        #proficiencies
+        print("Proficiences: ")
+        print(profCalc(clas,background))
         #languages
+        #skills
+        
         #equipment
         #Armor Class and Speed
         #spells
