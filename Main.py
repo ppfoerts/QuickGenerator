@@ -227,13 +227,68 @@ def alignmentGen():
   
 def backgroundGen():
     return random.choice(["Acolyte","Charlatan","Criminal","Entertainer","Folk Hero","Guild Artisan","Hermit","Noble","Outlander","Sage","Sailor","Soldier","Urchin"])
-   
+
 def hpGen(clas,con):
     d12 = {'Barbarian'}
-    if(clas in d12 )
+    d10 = {"Fighter","Paladin","Ranger"}
+    d8 = {"Bard","Cleric","Druid","Monk","Rogue","Warlock"}
+    d6 = {"Sorceror","Wizard"}
     hp = 0
+    if(clas in d12 ):
+        hp = 12 + calcBonus(con)
+    elif(clas in d10):
+        hp = 10 + calcBonus(con)  
+    elif(clas in d8):
+        hp = 8 + calcBonus(con)
+    elif(clas in d6):
+        hp = 6 + calcBonus(con)
+        
     return hp
+
+def savingThrowGen(stats,clas,profBonus):
+    saves = [0,0,0,0,0,0]
+    #can't think of way to do this efficiently right now, I'll do it manually for now
+    #str
+    for i in range(0,6):
+        saves[i] = calcBonus(stats[i])
     
+    #fighter and paladin
+    #strength and constitution
+    if(clas in {"Fighter","Paladin"}):
+        saves[0] += profBonus
+        saves[2] += profBonus
+    #Monk and Ranger
+    #Strength & Dexterity
+    elif(clas in {"Monk","Ranger"}):
+        saves[0] += profBonus
+        saves[1] += profBonus
+    #Cleric,Paladin, & Warlock
+    #Wisdom and Charisma
+    elif(clas in {"Cleric","Paladin","Warlock"}):
+        saves[4] += profBonus
+        saves[5] += profBonus
+    #Druid and Wizard
+    #Int and Wis 
+    elif(clas in {"Druid","Wizard"}):
+        saves[3] += profBonus
+        saves[4] += profBonus
+    #Bard
+    #Dex and Cha
+    elif(clas in {"Bard"}):
+        saves[1] += profBonus
+        saves[5] += profBonus
+    #Rogue
+    #Dex and Int
+    elif(clas in {"Rogue"}):
+        saves[1] += profBonus
+        saves[3] += profBonus
+    #Sorceror
+    #Con and Cha
+    elif(clas in {"Sorceror"}):
+        saves[2] += profBonus
+        saves[5] += profBonus
+
+    return saves   
 if __name__ == "__main__":
     #check for arguments
     if(len(sys.argv) != 2):
@@ -251,7 +306,7 @@ if __name__ == "__main__":
         print(race)
         #show modded stats with racials
         stats = raceStatChanges(stats,race)
-        print("Stats:")
+        print("Stats: (Str,Dex,Con,Int,Wis,Cha)")
         print(stats)
         #4th alignment
         print("Alignment:")
@@ -268,17 +323,22 @@ if __name__ == "__main__":
         print("Name: ")
         print(name)
         
-        #calculate the final set of stats
-        print(calcBonus(stats[0]))
         #HP and Hit Dice
         print("HP: ")
+        print(hpGen(clas,stats[2]))
         #Proficiency bonus
+        profBonus = 2
+        print("Proficiency Bonus: ")
+        print(profBonus)
         #saving throws
+        print("Saving Throws: ")
+        print(savingThrowGen(stats,clas,profBonus))
         #skills
         #languages
         #equipment
         #Armor Class and Speed
         #spells
+        #other
         
         
         
