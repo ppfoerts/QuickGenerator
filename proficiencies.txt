@@ -1,0 +1,14 @@
+Barbarian: Light and medium armor, shields,simple and martial weapons
+Bard: Light armor, simple weapons, handcrossbows, longswords, rapiers,shortswords
+Cleric: Light and medium armor, shields, simple weapons
+Druid: Light and medium armor (nonmetal), shields (nonmetal), clubs, daggers, darts, javelins, maces, quarterstaffs, scimitars, sickles, slings, spears
+Fighter: All armor, shields, simple and martial weapons
+Monk: Simple weapons, shortswords
+Paladin: All armor, shields, simple and martial weapons
+Ranger: Light and medium armor, shields, simple and martial weapons
+Rogue: Light armor, simple weapons, hand crossbows, longswords, rapiers, shortswords
+Sorceror: Daggers, darts, slings, quarterstaffs, light crossbows
+Warlock: Light armor, simple weapons
+Wizard: Daggers, darts, slings, quarterstaffs, light crossbows
+
+
