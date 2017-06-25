@@ -60,7 +60,7 @@ def nameGen(race,gender):
         fileName += "Dwarf"        
     elif("Half-Elf" in race):
         fileName += "Half-Elf"
-    elif("Elf" in race):
+    elif("Elf" in race or "Drow" in race):
         fileName += "Elf"
     elif("Halfling" in race):
         fileName += "Halfling"
@@ -300,11 +300,173 @@ def profCalc(clas,background):
     return proficiencies
 
 def langCalc(race,background):
+    languages = ["Elvish","Dwarvish","Orc","Gnomish","Giant","Goblin","Halfling"]
     lang = ["Common"]
-    
-    
+    if("Elf" in race or "Drow" in race):
+        lang.append("Elvish")
+        languages.remove("Elvish")
+    elif("Dwarf" in race):
+        lang.append("Dwarvish")
+        languages.remove("Dwarvish")
+    elif("orc" in race):
+        lang.append("Orc")
+        languages.remove("Orc")
+    elif("Gnome" in race):
+        lang.append("Gnomish")
+        languages.remove("Gnomish")
+    elif("Halfling" in race):
+        lang.append("Halfling")
+        languages.remove("Halfling")
+    elif("Tiefling" in race):
+        lang.append("Infernal")
+    elif("Dragonborn" in race):
+        lang.append("Draconic")
+        
+    if("Human" in race or "Half-Elf" in race):
+        choice = random.choice(languages)
+        lang.append(choice)
+        languages.remove(choice)
+        
+    #background languages here(once I get to that)
     return lang
+#list of what my skill proficiences are
+def skillProfCalc(clas,background):
+    profs = []
+    if(clas is "Barbarian"):
+        skills = ["Animal Handling","Athletics","Intimidation","Nature","Perception","Survival"]
+    elif(clas is "Bard"):
+        skills = ["Acrobatics","Animal Handling","Arcana","Athletics","Deception","History","Insight","Intimidation","Investigation","Medicine","Nature","Perception","Performance","Persuasion","Religion","Sleight of Hand", "Stealth","Survival"]
+    elif(clas is "Cleric"):
+        skills = ["History","Insight","Medicine","Persuasion","Religion"]
+    elif(clas is "Druid"):
+        skills = ["Arcana","Animal Handling","Insight","Medicine","Nature","Perception","Religion","Survival"]
+    elif(clas is "Fighter"):
+        skills = ["Acrobatics","Animal Handling","Athletics","History","Insight","Intimidation","Perception","Survival"]
+    elif(clas is "Monk"):
+        skills = ["Acrobatics","Athletics","History","Insight","Insight","Religion","Stealth"]
+    elif(clas is "Paladin"):
+        skills = ["Athletics","Insight","Intimidation","Medicine","Persuasion","Religion"]
+    elif(clas is "Ranger"):
+        skills = ["Animal Handling","Athletics","Insight","Investigation","Nature","Perception","Stealth","Survival"]
+    elif(clas is "Rogue"):
+        skills = ["Acrobatics", "Athletics","Deception","Insight","Intimidation","Investigation","Perception","Performance","Persuasion","Sleight of Hand","Stealth"]
+    elif(clas is "Sorceror"):
+        skills = ["Arcana","Deception","Insight","Intimidation","Persuasion","Religion"]
+    elif(clas is "Warlock"):   
+        skills = ["Arcana","Deception","History","Investigation","Intimidation","Nature","Religion"]
+    elif(clas is "Wizard"):
+        skills = ["Arcana","History","Insight","Investigation","Medicine","Religion"]
     
+    #background skills here
+    random.shuffle(skills)
+    profs.append(skills.pop())
+    profs.append(skills.pop())
+    if(clas is "Ranger" or clas is "Bard" or clas is "Rogue"):
+        profs.append(skills.pop())
+        if(clas is "Rogue"):
+            profs.append(skills.pop())
+     
+        
+    return profs
+
+def skillNum(skillProfs):
+    skillProfsNum = []
+    for skill in skillProfs:
+        if(skill is "Acrobatics"):
+            skillProfsNum.append(0)
+        elif(skill is "Animal Handling"):
+            skillProfsNum.append(1)
+        elif(skill is "Arcana"):
+            skillProfsNum.append(2)
+        elif(skill is "Athletics"):
+            skillProfsNum.append(3)
+        elif(skill is "Deception"):
+            skillProfsNum.append(4)
+        elif(skill is "History"):
+            skillProfsNum.append(5)
+        elif(skill is "Insight"):
+            skillProfsNum.append(6)
+        elif(skill is "Intimidation"):
+            skillProfsNum.append(7)
+        elif(skill is "Investigation"):
+            skillProfsNum.append(8)
+        elif(skill is "Medicine"):
+            skillProfsNum.append(9)
+        elif(skill is "Nature"):
+            skillProfsNum.append(10)
+        elif(skill is "Perception"):
+            skillProfsNum.append(11)
+        elif(skill is "Performance"):
+            skillProfsNum.append(12)
+        elif(skill is "Persuasion"):
+            skillProfsNum.append(13)
+        elif(skill is "Religion"):
+            skillProfsNum.append(14)
+        elif(skill is "Sleight of Hand"):
+            skillProfsNum.append(15)
+        elif(skill is "Stealth"):
+            skillProfsNum.append(16)
+        elif(skill is "Survival"):
+            skillProfsNum.append(17)
+    return skillProfsNum
+    
+def skillCalc(stats,profBonus,skillProfsNum):
+    skills = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    #Acrobatics (Dex)
+    skills[0] = calcBonus(stats[1])
+    #Animal Handling (Wis)
+    skills[1] = calcBonus(stats[4])
+    #Arcana (Int)
+    skills[2] = calcBonus(stats[3])
+    #Athletics (Str)
+    skills[3] = calcBonus(stats[0])
+    #Deception (Cha)
+    skills[4] = calcBonus(stats[5])
+    #History (Int)
+    skills[5] = calcBonus(stats[3])
+    #Insight (Wis)
+    skills[6] = calcBonus(stats[4])
+    #Intimidation (Cha)
+    skills[7] = calcBonus(stats[5])
+    #Investigation (Int)
+    skills[8] = calcBonus(stats[3])
+    #Medicine (Wis)
+    skills[9] = calcBonus(stats[4])
+    #Nature (Int)
+    skills[10] = calcBonus(stats[3])
+    #Perception (Wis)
+    skills[11] = calcBonus(stats[4])
+    #Performance (Cha)
+    skills[12] = calcBonus(stats[5])
+    #Persuasion (Cha)
+    skills[13] = calcBonus(stats[5])
+    #Religion (Int)
+    skills[14] = calcBonus(stats[3])
+    #Sleight of Hand (Dex)
+    skills[15] = calcBonus(stats[1])
+    #Stealth (Dex)
+    skills[16] = calcBonus(stats[1])
+    #Survival (Wis)
+    skills[17] = calcBonus(stats[4])
+    
+    for skillProf in skillProfsNum:
+        skills[skillProf] += profBonus
+        
+    return skills
+
+def equipCalc(clas,background):
+    equipment = []
+    return equipment
+
+def acspdCalc(race,equipment):
+    ac = 0
+    spd = 0
+    return ac,spd
+    
+def spellsCalc(clas):
+    spells = []
+    return spells
+
 if __name__ == "__main__":
     #check for arguments
     if(len(sys.argv) != 2):
@@ -354,8 +516,14 @@ if __name__ == "__main__":
         print("Proficiences: ")
         print(profCalc(clas,background))
         #languages
+        print("Languages: ")
+        print(langCalc(race,background))
         #skills
-        
+        print("Skills: ")
+        print("     Proficiencies: ")
+        skillProfs = skillProfCalc(clas,background)
+        print(skillProfs)
+        print(skillCalc(stats,profBonus,skillNum(skillProfs)))
         #equipment
         #Armor Class and Speed
         #spells
