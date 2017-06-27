@@ -11,4 +11,4 @@ Spear
 Crossbow, light
 Dart 
 Shortbow 
-Sling 
+Sling

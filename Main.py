@@ -480,7 +480,7 @@ def equipCalc(clas,background):
     elif(clas is "Cleric"):
         equipment.append("Mace")
         equipment.append(random.choice(["scale mail","leather armor"]))
-        simpleWeapons.extend(("light crossbow and 20 bolts"))
+        simpleWeapons.append("light crossbow and 20 bolts")
         equipment.append(random.choice(simpleWeapons))
         equipment.append(random.choice(["Priest's Pack","Explorer's Pack"]))
         equipment.append("Shield")
@@ -492,12 +492,12 @@ def equipCalc(clas,background):
         equipment.append(random.choice(simpleMeleeWeapons))
         equipment.append("Leather armor")
         equipment.append("Exporer's Pack")
-        euquipment.append("Druidic Focus")
+        equipment.append("Druidic Focus")
     elif(clas is "Fighter"):
         equipment.append(random.choice(["chain mail","leather armor, longbow and 20 arrows"]))
-        equipment.append(random.choice(random.choice(martialWeapons)))
+        equipment.append(random.choice(martialWeapons))
         martialWeapons.append("shield")
-        equipment.append(random.choice(random.choice(martialWeapons)))
+        equipment.append(random.choice(martialWeapons))
         equipment.append(random.choice(["light crossbow and 20 bolts","2 Handaxes"]))
         equipment.append(random.choice(["Dungeoneers's Pack","Explorer's Pack"]))
     elif(clas is "Monk"):
@@ -640,7 +640,6 @@ if __name__ == "__main__":
         print(skillProfs)
         print(skillCalc(stats,profBonus,skillNum(skillProfs)))
         #equipment
-        print(stats.extend((5,6)))
         print("Equipment:")
         print(equipCalc(clas,background))
         #Armor Class and Speed
