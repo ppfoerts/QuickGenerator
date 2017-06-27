@@ -456,10 +456,14 @@ def skillCalc(stats,profBonus,skillProfsNum):
 
 def equipCalc(clas,background):
     script_dir = os.path.dirname(__file__)
+    with open('equipment/martialWeapons.txt') as f:
+        martialWeapons = f.read().splitlines()
     with open('equipment/martialMeleeWeapons.txt') as f:
         martialMWeapons = f.read().splitlines()
     with open('equipment/simpleWeapons.txt') as f:
         simpleWeapons = f.read().splitlines()
+    with open('equipment/simpleMeleeWeapons.txt') as f:
+        simpleMeleeWeapons = f.read().splitlines()
     equipment = []
     if(clas is "Barbarian"):
         equipment.append(random.choice(martialMWeapons))
@@ -467,27 +471,78 @@ def equipCalc(clas,background):
         equipment.append("Explorer's Pack")
         equipment.append("4 Javelins")
     elif(clas is "Bard"):
-        a = 
+        simpleWeapons.extend(("Rapier","Longsword"))
+        equipment.append(random.choice(simpleWeapons))
+        equipment.append(random.choice(["Diplomat's Pack","Entertainer's Pack"]))
+        equipment.append(random.choice(["Bagpipes","Drum","Dulcimer","Flute","Lute","Lyre","Horn","Pan flute","Shawm","Viol"]))
+        equipment.append("Leather armor")
+        equipment.append("Dagger")
     elif(clas is "Cleric"):
-        print()
+        equipment.append("Mace")
+        equipment.append(random.choice(["scale mail","leather armor"]))
+        simpleWeapons.extend(("light crossbow and 20 bolts"))
+        equipment.append(random.choice(simpleWeapons))
+        equipment.append(random.choice(["Priest's Pack","Explorer's Pack"]))
+        equipment.append("Shield")
+        equipment.append("Holy Symbol")
     elif(clas is "Druid"):
-        print()
+        simpleWeapons.append("wooden shield")
+        equipment.append(random.choice(simpleWeapons))
+        simpleMeleeWeapons.append("scimitar")
+        equipment.append(random.choice(simpleMeleeWeapons))
+        equipment.append("Leather armor")
+        equipment.append("Exporer's Pack")
+        euquipment.append("Druidic Focus")
     elif(clas is "Fighter"):
-        print()
+        equipment.append(random.choice(["chain mail","leather armor, longbow and 20 arrows"]))
+        equipment.append(random.choice(random.choice(martialWeapons)))
+        martialWeapons.append("shield")
+        equipment.append(random.choice(random.choice(martialWeapons)))
+        equipment.append(random.choice(["light crossbow and 20 bolts","2 Handaxes"]))
+        equipment.append(random.choice(["Dungeoneers's Pack","Explorer's Pack"]))
     elif(clas is "Monk"):
-        print()
+        simpleWeapons.append("shortsword")
+        equipment.append(random.choice(simpleWeapons))
+        equipment.append(random.choice(["Dungeoneers's Pack","Explorer's Pack"]))
+        equipment.append("10 darts")
     elif(clas is "Paladin"):
-        print()
+        equipment.append(random.choice(random.choice(martialWeapons)))
+        martialWeapons.append("shield")
+        equipment.append(random.choice(martialWeapons))
+        simpleWeapons.append("5 Javelins")
+        equipment.append(random.choice(simpleWeapons))
+        equipment.append(random.choice(["Priest's Pack","Explorer's Pack"]))
     elif(clas is "Ranger"):
-        print()
+        equipment.append(["scale mail","leather armor"])
+        equipment.append(random.choice(["2 shortswords",[random.choice(simpleMeleeWeapons),random.choice(simpleMeleeWeapons)]]))
+        equipment.append(random.choice(["Dungeoneers's Pack","Explorer's Pack"]))
+        equipment.append("Longbow and quiver with 20 arrows")
     elif(clas is "Rogue"):
-        print()
+        equipment.append(random.choice(["rapier","shortsword"]))
+        equipment.append(random.choice(["Longbow and quiver with 20 arrows","shortsword"]))
+        equipment.append(random.choice(["Burglar's Pack","Dungeoneers's Pack","Explorer's Pack"]))
+        equipment.append("2 Daggers")
+        equipment.append("Leather armor")
+        equipment.append("thieve's tools")
     elif(clas is "Sorceror"):
-        print()
+        simpleWeapons.append("light crossbow and 20 bolts")
+        equipment.append(random.choice(simpleWeapons))
+        equipment.append(random.choice(["Component Pouch","Arcane Focus"]))
+        equipment.append(random.choice(["Dungeoneers's Pack","Explorer's Pack"]))
+        equipment.append("2 Daggers")
     elif(clas is "Warlock"):   
-        print()
+        equipment.append(random.choice(simpleWeapons))
+        simpleWeapons.append("light crossbow and 20 bolts")
+        equipment.append(random.choice(simpleWeapons))
+        equipment.append(random.choice(["Component Pouch","Arcane Focus"]))
+        equipment.append(random.choice(["Dungeoneers's Pack","Scholar's Pack"]))
+        equipment.append("2 Daggers")
+        equipment.append("Leather armor")
     elif(clas is "Wizard"):
-        print()
+        equipment.append(random.choice(["quarterstaff","dagger"]))
+        equipment.append(random.choice(["Component Pouch","Arcane Focus"]))
+        equipment.append(random.choice(["Explorer's Pack","Scholar's Pack"]))
+        equipment.append("spellbook")
     return equipment
 
 def acspdCalc(race,equipment):
@@ -500,7 +555,8 @@ def spellsCalc(clas):
     if(clas is "Barbarian"):
         print()
     elif(clas is "Bard"):
-        a = 
+        cantrips = ["dancing lights","vicious mockery"]
+        lvl1 = ["charm person","detect magic","healing word","thunderwave"]
     elif(clas is "Cleric"):
         print()
     elif(clas is "Druid"):
@@ -516,11 +572,14 @@ def spellsCalc(clas):
     elif(clas is "Rogue"):
         print()
     elif(clas is "Sorceror"):
-        print()
+        cantrips = ["light","prestidigation","ray of frost","shocking grasp"]
+        lvl1 = ["shield","Magic missile"]
     elif(clas is "Warlock"):   
-        print()
+        cantrips = ["Eldritch Blast", "Chill touch"]
+        lvl1 = ["Ray of sickness","witch bolt"]
     elif(clas is "Wizard"):
-        print()
+        cantrips = ["mage hand","light","ray of frost"]
+        lvl1 = ["burning hands","charm person","feather fall","mage armor","magic missile","sleep"]
     return spells
 
 if __name__ == "__main__":
@@ -581,7 +640,9 @@ if __name__ == "__main__":
         print(skillProfs)
         print(skillCalc(stats,profBonus,skillNum(skillProfs)))
         #equipment
-        equipCalc(clas,background)
+        print(stats.extend((5,6)))
+        print("Equipment:")
+        print(equipCalc(clas,background))
         #Armor Class and Speed
         #spells
         #other
