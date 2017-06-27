@@ -455,7 +455,39 @@ def skillCalc(stats,profBonus,skillProfsNum):
     return skills
 
 def equipCalc(clas,background):
+    script_dir = os.path.dirname(__file__)
+    with open('equipment/martialMeleeWeapons.txt') as f:
+        martialMWeapons = f.read().splitlines()
+    with open('equipment/simpleWeapons.txt') as f:
+        simpleWeapons = f.read().splitlines()
     equipment = []
+    if(clas is "Barbarian"):
+        equipment.append(random.choice(martialMWeapons))
+        equipment.append(random.choice(simpleWeapons))
+        equipment.append("Explorer's Pack")
+        equipment.append("4 Javelins")
+    elif(clas is "Bard"):
+        a = 
+    elif(clas is "Cleric"):
+        print()
+    elif(clas is "Druid"):
+        print()
+    elif(clas is "Fighter"):
+        print()
+    elif(clas is "Monk"):
+        print()
+    elif(clas is "Paladin"):
+        print()
+    elif(clas is "Ranger"):
+        print()
+    elif(clas is "Rogue"):
+        print()
+    elif(clas is "Sorceror"):
+        print()
+    elif(clas is "Warlock"):   
+        print()
+    elif(clas is "Wizard"):
+        print()
     return equipment
 
 def acspdCalc(race,equipment):
@@ -465,6 +497,30 @@ def acspdCalc(race,equipment):
     
 def spellsCalc(clas):
     spells = []
+    if(clas is "Barbarian"):
+        print()
+    elif(clas is "Bard"):
+        a = 
+    elif(clas is "Cleric"):
+        print()
+    elif(clas is "Druid"):
+        print()
+    elif(clas is "Fighter"):
+        print()
+    elif(clas is "Monk"):
+        print()
+    elif(clas is "Paladin"):
+        print()
+    elif(clas is "Ranger"):
+        print()
+    elif(clas is "Rogue"):
+        print()
+    elif(clas is "Sorceror"):
+        print()
+    elif(clas is "Warlock"):   
+        print()
+    elif(clas is "Wizard"):
+        print()
     return spells
 
 if __name__ == "__main__":
@@ -525,6 +581,7 @@ if __name__ == "__main__":
         print(skillProfs)
         print(skillCalc(stats,profBonus,skillNum(skillProfs)))
         #equipment
+        equipCalc(clas,background)
         #Armor Class and Speed
         #spells
         #other
