@@ -506,7 +506,7 @@ def equipCalc(clas,background):
         equipment.append(random.choice(["Dungeoneers's Pack","Explorer's Pack"]))
         equipment.append("10 darts")
     elif(clas is "Paladin"):
-        equipment.append(random.choice(random.choice(martialWeapons)))
+        equipment.append(random.choice(martialWeapons))
         martialWeapons.append("shield")
         equipment.append(random.choice(martialWeapons))
         simpleWeapons.append("5 Javelins")
