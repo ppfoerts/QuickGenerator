@@ -475,7 +475,7 @@ def equipCalc(clas,background):
         equipment.append(random.choice(simpleWeapons))
         equipment.append(random.choice(["Diplomat's Pack","Entertainer's Pack"]))
         equipment.append(random.choice(["Bagpipes","Drum","Dulcimer","Flute","Lute","Lyre","Horn","Pan flute","Shawm","Viol"]))
-        equipment.append("Leather armor")
+        equipment.append("leather armor")
         equipment.append("Dagger")
     elif(clas is "Cleric"):
         equipment.append("Mace")
@@ -522,7 +522,7 @@ def equipCalc(clas,background):
         equipment.append(random.choice(["Longbow and quiver with 20 arrows","shortsword"]))
         equipment.append(random.choice(["Burglar's Pack","Dungeoneers's Pack","Explorer's Pack"]))
         equipment.append("2 Daggers")
-        equipment.append("Leather armor")
+        equipment.append("leather armor")
         equipment.append("thieve's tools")
     elif(clas is "Sorceror"):
         simpleWeapons.append("light crossbow and 20 bolts")
@@ -537,7 +537,7 @@ def equipCalc(clas,background):
         equipment.append(random.choice(["Component Pouch","Arcane Focus"]))
         equipment.append(random.choice(["Dungeoneers's Pack","Scholar's Pack"]))
         equipment.append("2 Daggers")
-        equipment.append("Leather armor")
+        equipment.append("leather armor")
     elif(clas is "Wizard"):
         equipment.append(random.choice(["quarterstaff","dagger"]))
         equipment.append(random.choice(["Component Pouch","Arcane Focus"]))
@@ -545,13 +545,40 @@ def equipCalc(clas,background):
         equipment.append("spellbook")
     return equipment
 
-def acspdCalc(race,equipment):
-    ac = 0
-    spd = 0
+def acspdCalc(race,equipment,stats):
+    ac = 10
+    spd = 30
+    dex = calcBonus(stats[1])
+    str = calcBonus(stats[0])
+  
+    if("Halfling" in race or "Gnome" in race):
+        spd = 25
+        
+    #leather
+    if("leather armor" in equipment):
+        ac = 11 + dex
+    #scale mail
+    elif("scale mail" in equipment):
+        if(dex >= 2):
+            ac = 14 + 2
+        else:
+            ac = 14 + dex
+    #chain mail
+    elif("chain mail" in equipment):
+        ac = 16
+        #if str less than the required, reduce spd by 10
+        if(str >= 13):
+            spd = spd - 10
+    #dwarves ignore heavy armor strength penalty        
+    if("Dwarf" in race):
+        spd = 25
+        
     return ac,spd
     
 def spellsCalc(clas):
     spells = []
+    cantrips = []
+    lvl1 = []
     if(clas is "Barbarian"):
         print()
     elif(clas is "Bard"):
@@ -580,6 +607,9 @@ def spellsCalc(clas):
     elif(clas is "Wizard"):
         cantrips = ["mage hand","light","ray of frost"]
         lvl1 = ["burning hands","charm person","feather fall","mage armor","magic missile","sleep"]
+        
+    spells.append(cantrips)
+    spells.append(lvl1)
     return spells
 
 if __name__ == "__main__":
@@ -641,9 +671,18 @@ if __name__ == "__main__":
         print(skillCalc(stats,profBonus,skillNum(skillProfs)))
         #equipment
         print("Equipment:")
-        print(equipCalc(clas,background))
+        equipment = equipCalc(clas,background)
+        print(equipment)
         #Armor Class and Speed
+        
+        ac,spd = acspdCalc(race,equipment,stats)
+        print("AC: ")
+        print(ac)
+        print("Speed: ")
+        print(spd,"ft")
         #spells
+        print("Spell List: ")
+        print(spellsCalc(clas))
         #other
         
         
