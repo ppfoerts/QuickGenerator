@@ -297,38 +297,51 @@ def profCalc(clas,background):
         for line in f:
             if clas in line:
                 proficiencies += line
+                proficiencies += "\n"
+            elif background in line:
+                proficiences += line
+                proficiencies += "\n"
+
     return proficiencies
 
 def langCalc(race,background):
     languages = ["Elvish","Dwarvish","Orc","Gnomish","Giant","Goblin","Halfling"]
-    lang = ["Common"]
+    known = ["Common"]
     if("Elf" in race or "Drow" in race):
-        lang.append("Elvish")
+        known.append("Elvish")
         languages.remove("Elvish")
     elif("Dwarf" in race):
-        lang.append("Dwarvish")
+        known.append("Dwarvish")
         languages.remove("Dwarvish")
     elif("orc" in race):
-        lang.append("Orc")
+        known.append("Orc")
         languages.remove("Orc")
     elif("Gnome" in race):
-        lang.append("Gnomish")
+        known.append("Gnomish")
         languages.remove("Gnomish")
     elif("Halfling" in race):
-        lang.append("Halfling")
+        known.append("Halfling")
         languages.remove("Halfling")
     elif("Tiefling" in race):
-        lang.append("Infernal")
+        known.append("Infernal")
     elif("Dragonborn" in race):
-        lang.append("Draconic")
+        known.append("Draconic")
         
     if("Human" in race or "Half-Elf" in race):
         choice = random.choice(languages)
-        lang.append(choice)
+        known.append(choice)
         languages.remove(choice)
         
-    #background languages here(once I get to that)
-    return lang
+    #background languages
+    random.shuffle(languages)
+    if(background is "Guild Artisan" or background is "Hermit" or background is "Noble" or background is "Outlander"):
+         known.append(languages.pop())
+    elif(background is "Acolyte" or background is "Sage"):
+        #add two languages
+        known.append(languages.pop())
+        known.append(languages.pop())
+    
+    return known
 #list of what my skill proficiences are
 def skillProfCalc(clas,background):
     profs = []
@@ -358,6 +371,73 @@ def skillProfCalc(clas,background):
         skills = ["Arcana","History","Insight","Investigation","Medicine","Religion"]
     
     #background skills here
+    #add skills profs and then remove from random list
+    if(background is "Acolyte"):
+        profs.append("Insight")
+        profs.append("Religon")
+        skills = list(filter(("Insight").__ne__, skills))
+        skills = list(filter(("Religion").__ne__, skills))
+    elif(background is "Charlatan"):
+        profs.append("Deception")
+        profs.append("Sleight of Hand")
+        skills = list(filter(("Deception").__ne__, skills))
+        skills = list(filter(("Sleight of Hand").__ne__, skills))
+    elif(background is "Criminal"):
+        profs.append("Deception")
+        profs.append("Stealth")
+        skills = list(filter(("Deception").__ne__, skills))
+        skills = list(filter(("Stealth").__ne__, skills))
+    elif(background is "Entertainer"):
+        profs.append("Acrobatics")
+        profs.append("Performance")
+        skills = list(filter(("Acrobatics").__ne__, skills))
+        skills = list(filter(("Performance").__ne__, skills))
+    elif(background is "Folk Hero"):
+        profs.append("Animal Handling")
+        profs.append("Survival")
+        skills = list(filter(("Animal Handling").__ne__, skills))
+        skills = list(filter(("Survival").__ne__, skills))
+    elif(background is "Guild Artisan"):
+        profs.append("Insight")
+        profs.append("Persuasion")
+        skills = list(filter(("Insight").__ne__, skills))
+        skills = list(filter(("Persusasion").__ne__, skills))
+    elif(background is "Hermit"):
+        profs.append("Medicine")
+        profs.append("Religion")
+        skills = list(filter(("Medicine").__ne__, skills))
+        skills = list(filter(("Religion").__ne__, skills))
+    elif(background is "Noble"):
+        profs.append("History")
+        profs.append("Persuasion")
+        skills = list(filter(("History").__ne__, skills))
+        skills = list(filter(("Persusasion").__ne__, skills))
+    elif(background is "Outlander"):
+        profs.append("Athletics")
+        profs.append("Survival")
+        skills = list(filter(("Athletics").__ne__, skills))
+        skills = list(filter(("Survival").__ne__, skills))
+    elif(background is "Sage"):
+        profs.append("History")
+        profs.append("Arcana")
+        skills = list(filter(("History").__ne__, skills))
+        skills = list(filter(("Arcana").__ne__, skills))
+    elif(background is "Sailor"):
+        profs.append("Athletics")
+        profs.append("Perception")
+        skills = list(filter(("Athletics").__ne__, skills))
+        skills = list(filter(("Perception").__ne__, skills))
+    elif(background is "Soldier"):
+        profs.append("Athletics")
+        profs.append("Intimidation")
+        skills = list(filter(("Athletics").__ne__, skills))
+        skills = list(filter(("Intimidation").__ne__, skills))
+    elif(background is "Urchin"):
+        profs.append("Sleight of Hand")
+        profs.append("Stealth")
+        skills = list(filter(("Sleight of Hand").__ne__, skills))
+        skills = list(filter(("Stealth").__ne__, skills))
+        
     random.shuffle(skills)
     profs.append(skills.pop())
     profs.append(skills.pop())
@@ -543,6 +623,43 @@ def equipCalc(clas,background):
         equipment.append(random.choice(["Component Pouch","Arcane Focus"]))
         equipment.append(random.choice(["Explorer's Pack","Scholar's Pack"]))
         equipment.append("spellbook")
+    
+    artisanTools = ["Alchemist’s supplies","Brewer’s supplies","Calligrapher's supplies","Carpenter’s tools","Cartographer’s tools","Cobbler’s tools","Cook’s utensils","Glassblower’s tools","Jeweler’s tools","Leatherworker’s tools","Mason’s tools","Painter’s supplies","Potter’s tools","Smith’s tools","Tinker’s tools","Weaver’s tools","Woodcarver's tools"]
+    #check background for stuff
+    if(background is "Acolyte"):
+        equipment.extend(("Holy Symbol","5 Sticks of incense","vestments","Set of Common Clothes","15 gp"))
+        equipment.append(random.choice(["Prayer Book","Prayer Wheel"]))
+    elif(background is "Charlatan"):
+        equipment.extend(("Set of fine clothes","disguise kit","15gp"))
+        equipment.append(random.choice(["Ten stoppered bottles filled with colored liquid","set of weighted dice","deck of market cards","signet ring of imaginary duke"]))
+    elif(background is "Criminal"):
+        equipment.extend(("crowbar","set of dark common clothes including a hood", "15gp"))
+    elif(background is "Entertainer"):
+        equipment.append(random.choice["Bagpipes","Drum","Dulcimer","Flute","Lute","Lyre","Horn","Pan flute","Shawm","Viol"])
+        equipment.append(random.choice(["love letter","lock of hair","trinket"])
+        equipment.extend(("costume","15 gp"))
+    elif(background is "Folk Hero"):
+        equipment.extend(("shovel","iron pot","set of common clothes","10 gp"))
+        equipment.append(random.choice(artisanTools))
+    elif(background is "Guild Artisan"):
+        equipment.append(random.choice(artisanTools))
+        equipment.extend(("letter of introduction from your guild","set of traveller's clothes","15gp"))
+    elif(background is "Hermit"):
+        equipment.extend(("A scroll case stuffed full of notes from your studies or prayers","winter blanket","set of common clothes","herbalism kit","5 gp"))
+    elif(background is "Noble"):
+        equipment.extend(("set of fine clothes","signet ring","scroll of pedigree","25 gp"))
+    elif(background is "Outlander"):
+        equipment.extend(("staff","hunting trap","trophy from animal you killed","set of traveller's clothes","10 gp"))
+    elif(background is "Sage"):
+        equipment.extend(("bottle of black ink","quill","small knife","letter from dead colleague posing a question you have not yet been able to answer","set of common clothes","10 gp"))
+    elif(background is "Sailor"):
+        equipment.extend(("A belaying pin","50 ft of silk rope","lucky charm","set of common clothes","10 gp"))
+    elif(background is "Soldier"):
+        equipment.extend(("insignia of rank","trophy from fallen enemy","set of common clothes","10 gp"))
+        equipment.append(random.choice(["bone dice","deck of cards"]))
+    elif(background is "Urchin"):
+        equipment.extend(("small knife","map of the city you grew up in","pet mouse","token to remember parents by","set of common clothes","10 gp"))
+    
     return equipment
 
 def acspdCalc(race,equipment,stats):
@@ -661,7 +778,7 @@ if __name__ == "__main__":
         print("Proficiences: ")
         print(profCalc(clas,background))
         #languages
-        print("Languages: ")
+        print("languages: ")
         print(langCalc(race,background))
         #skills
         print("Skills: ")
@@ -674,7 +791,6 @@ if __name__ == "__main__":
         equipment = equipCalc(clas,background)
         print(equipment)
         #Armor Class and Speed
-        
         ac,spd = acspdCalc(race,equipment,stats)
         print("AC: ")
         print(ac)

@@ -10,5 +10,16 @@ Rogue: Light armor, simple weapons, hand crossbows, longswords, rapiers, shortsw
 Sorceror: Daggers, darts, slings, quarterstaffs, light crossbows
 Warlock: Light armor, simple weapons
 Wizard: Daggers, darts, slings, quarterstaffs, light crossbows
+Charlatan: Disguise Kit, Forgery Kit
+Criminal: Thieves' Tools, Gaming Set
+Entertainer: Disguise Kit, Musical Instrument
+Folk Hero: Artisan's tools, vehicles(land)
+Guild Artisan: Artisan's tools
+Hermit: Herbalism Kit
+Noble: Gaming Set
+Outlander: Musical Instrument
+Sailor: Navigator's tools, vehicles(water)
+Soldier: Gaming set, vehicles(land)
+Urchin: Disguise kit, Thieves' tools
 
 
